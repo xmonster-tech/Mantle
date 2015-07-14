@@ -95,9 +95,11 @@ static NSString * const MTLJSONAdapterThrownExceptionErrorKey = @"MTLJSONAdapter
 	for (NSDictionary *JSONDictionary in JSONArray){
 		MTLModel *model = [self modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:error];
 
-		if (model == nil) return nil;
+//		if (model == nil) return nil;
+        if (model != nil) {
+            [models addObject:model];
+        }
 
-		[models addObject:model];
 	}
 
 	return models;
@@ -405,7 +407,7 @@ static NSString * const MTLJSONAdapterThrownExceptionErrorKey = @"MTLJSONAdapter
 				transformer = [self transformerForModelPropertiesOfClass:propertyClass];
 			}
 
-			if (transformer == nil) transformer = [NSValueTransformer mtl_validatingTransformerForClass:propertyClass ?: NSObject.class];
+			if (transformer == nil) transformer = [NSValueTransformer mtl_validatingTransformerForClass:NSObject.class];
 		} else {
 			transformer = [self transformerForModelPropertiesOfObjCType:attributes->type] ?: [NSValueTransformer mtl_validatingTransformerForClass:NSValue.class];
 		}

@@ -75,7 +75,10 @@
 
 	if (outerSuccess != NULL) *outerSuccess = success;
 	if (outerError != NULL) *outerError = error;
-
+    if (error != nil) {
+        NSLog(@"parse error:%@", error);
+    }
+    
 	return transformedValue;
 }
 
